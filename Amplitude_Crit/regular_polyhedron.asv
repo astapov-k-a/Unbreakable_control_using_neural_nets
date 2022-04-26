@@ -1,0 +1,5 @@
+fuction re=regular_polyhedron(n,r,phi0,x,y)
+
+for i=n-1:0
+    re(i,2)=x+r
+end

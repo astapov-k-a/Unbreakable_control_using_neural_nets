@@ -1,0 +1,22 @@
+%uc_amplitude
+
+At=0.3;Umin=0.1;
+
+[tx ty]=uc_amplitude_genset(10000,At,Umin);
+limm=zeros(size(tx,1),2);
+limm(:,2)=1;
+net=newff(limm,[size(tx,2)  1])
+
+net.trainFcn='trainbfg'
+net.trainParam.show=1;
+net.trainParam.goal=0.00001;
+net=train(net,tx,ty);
+
+%проверка
+fprintf('\n\n\n\nПроверка ИНС на незнакомых ей образцах\n\n');
+for i=1:5
+    [rex, rey]=uc_amplitude_genexample(At,Umin);
+    rey=sim(net,rex)
+    
+    fprintf('Образец N°%u, ожидается значение %2.10')
+end
